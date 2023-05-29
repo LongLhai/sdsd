@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- This meta tag is for compatibility with IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- This meta tag makes your website look good on all devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ร้านอาหารโครตดัง</title>
+  <!-- This is the css file for the map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <!-- This is the css file for the template -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <style>
+    /* This is the css for the div that will hold the map */
+    #mapid {
+      height: 800px;
+    }
+  </style>
+  
+</head>
+<header>
+</div>
+<nav>
+
+</header>
+<body>
+  <!-- This is the div that will hold the map and the content -->
+  <div class="w3-row">
+    <div id="mapid" class="w3-half"></div>
+    <div id="content" class="w3-half">
+      <table class="w3-table w3-striped">
+        <tr>
+          <th>ร้านอาหาร</th>
+          <th>จังหวัด</th>
+          <th>ความนิยม</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Import the leaflet.js library -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script>
+    // Initialize the map and set its view to our chosen geographical coordinates and a zoom level
+    var map = L.map("mapid").setView([13.736717, 100.523186], 8); 
+
+    // Add the OpenStreetMap layer to the map
+    var osm = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    ).addTo(map);
+    // Add the Google Satellite layer
+    var gsat = L.tileLayer(
+      "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+    );
+    // Add the OpenStreetMap HOT layer
+    var OpenStreetMap_HOT = L.tileLayer(
+      "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+    );
+    // Group all base layers into a single object
+    var baseMaps = {
+      OSM: osm,
+      GoogleSat: gsat,
+      streetmap: OpenStreetMap_HOT,
+    };
+
+    // Define our GeoJSON object with the features (locations)
+    var Thailand = {
+      "type": "FeatureCollection",
+      // The 'features' property of the GeoJSON object is an array of GeoJSON feature objects.
+      "features": [
+        // Here are the locations. You can change these coordinates to place your locations
+        // You can also change the type and level to categorize your locations.
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "เนื้อเเท้",
+            "type": "กรุงเทพมหานคร",
+            "level": 1
+          },
+          "geometry": {
+            "coordinates": [
+            100.78991672883545,
+            13.843776842956197 
+            ],
+            "type": "Point"
+          }
+        },
+        // More locations...
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Coffee War",
+            "type": "ชลบุรี",
+            "level": 2
+          },
+          "geometry": {
+            "coordinates": [
+            100.99086378465815,
+            12.757092807966849 
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "ร้านไปกันใหญ่",
+            "type": "กรุงเทพมหานคร",
+            "level": 3
+          },
+          "geometry": {
+            "coordinates": [
+            100.62980054873171,
+            13.82555067739978 
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Yang Noey",
+            "type": "ปทุมธานี",
+            "level": 4
+          },
+          "geometry": {
+            "coordinates": [
+            100.64201911349362,
+            13.967482652272073 
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "ร้านใส่นม",
+            "type": "กรุงเทพมหานคร",
+            "level": 5
+          },
+          "geometry": {
+            "coordinates": [
+            100.61765317116455,
+            13.886045684075645 
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Sap Nuar",
+            "type": "นครปฐม",
+            "level": 6
+          },
+          "geometry": {
+            "coordinates": [
+            100.28929812883545,
+            13.799127886311245 
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Golden Chicken",
+            "type": "นนทบุรี",
+            "level": 7
+          },
+          "geometry": {
+            "coordinates": [
+            100.53805215582271,
+            13.908446849974844 
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Pupen Seafood Restaurant",
+            "type": "ชลบุรี",
+            "level": 8
+          },
+          "geometry": {
+            "coordinates": [
+            100.89550254232907,
+            12.861474608816208 
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "ลาดมะพร้าว",
+            "type": "กรุงเทพมหานคร",
+            "level": 9
+          },
+          "geometry": {
+            "coordinates": [
+            100.55999070000001,
+            13.812724172143007  
+            ],
+            "type": "Point"
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "เ.ขี.ย.ง. • พญาไท",
+            "type": "กรุงเทพมหานคร",
+            "level": 10
+          },
+          "geometry": {
+            "coordinates": [
+            100.53299178465817,
+            13.755065586109883 
+            ],
+            "type": "Point"
+          }
+        },
+        // To add more locations, simply add more feature objects to the 'features' array.
+      ]
+    };
+    // Create a layer from the GeoJSON object and add it to the map
+    var tourLayer = L.geoJSON(Thailand, {
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng).bindPopup(feature.properties.name);
+      },
+      onEachFeature: function (feature, layer) {
+        layer.on("mouseover", function () {
+          document
+            .getElementById(feature.properties.name)
+            .classList.add("w3-red");
+        });
+
+        layer.on("mouseout", function () {
+          document
+            .getElementById(feature.properties.name)
+            .classList.remove("w3-red");
+        });
+      },
+    }).addTo(map);
+
+    // Generate the table that will show the locations
+    var cont = "";
+    cont += "<table class='w3-table w3-striped'>";
+    cont += "<tr>";
+    cont += "<th>ร้านอาหาร</th>";
+    cont += "<th>จังหวัด</th>";
+    cont += "<th>ความนิยม</th>";
+    cont += "</tr>";
+    for (let i in Thailand.features) {
+      cont += "<tr id=" + Thailand.features[i].properties.name + ">";
+      cont += "<td>" + Thailand.features[i].properties.name + "</td>";
+      cont += "<td>" + Thailand.features[i].properties.type + "</td>";
+      cont += "<td>" + Thailand.features[i].properties.level + "</td>";
+      cont += "</tr>";
+    }
+    cont += "</table>";
+    document.getElementById("content").innerHTML = cont;
+
+    // Group all overlay layers into a single object
+    var overlays = { "ร้านอาหาร": tourLayer };
+    //add layer control
+    L.control.layers(baseMaps, overlays).addTo(map);
+  </script>
+
+</body>
+</html>
